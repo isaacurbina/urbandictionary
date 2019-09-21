@@ -14,6 +14,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Credentials and base URL for RapidAPI
+        buildConfigField("String", "API_HOST_HEADER", "mashape-community-urban-dictionary.p.rapidapi.com")
+        buildConfigField("String", "API_KEY", "d3aa3ab9d7mshbc0c41b04c009d5p121248jsn5ce0e36364f8")
+        buildConfigField("String", "API_BASE_URL", "https://mashape-community-urban-dictionary.p.rapidapi.com/")
     }
     buildTypes {
         release {
@@ -38,6 +43,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.5.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.5.0"
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     // RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
