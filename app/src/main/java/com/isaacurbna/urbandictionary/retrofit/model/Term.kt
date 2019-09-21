@@ -1,4 +1,4 @@
-package com.isaacurbna.urbandictionary.model
+package com.isaacurbna.urbandictionary.retrofit.model
 
 import com.google.gson.annotations.SerializedName
 

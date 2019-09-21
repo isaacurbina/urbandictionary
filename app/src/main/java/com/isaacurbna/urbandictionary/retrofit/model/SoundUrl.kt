@@ -1,8 +1,9 @@
-package com.isaacurbna.urbandictionary.model
+package com.isaacurbna.urbandictionary.retrofit.model
 
 
 import com.google.gson.annotations.SerializedName
 
+// TODO(create custom serializer to parse object and ignore custom incremental key)
 data class SoundUrl(
     @SerializedName("0")
     var x0: String?,
