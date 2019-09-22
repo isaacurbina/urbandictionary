@@ -4,7 +4,7 @@ import com.isaacurbna.urbandictionary.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.RequestBody
-import org.junit.After
+import okhttp3.Response
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -21,8 +21,10 @@ class AuthHeadersInterceptorTest {
     lateinit var mockBuilder: Request.Builder
     @Mock
     lateinit var mockBody: RequestBody
+    @Mock
+    lateinit var mockResponse: Response
 
-    var interceptor: AuthHeadersInterceptor? = null
+    lateinit var interceptor: AuthHeadersInterceptor
 
     @Before
     fun setUp() {
@@ -30,26 +32,38 @@ class AuthHeadersInterceptorTest {
         MockitoAnnotations.initMocks(this)
         interceptor = AuthHeadersInterceptor()
 
-        // Setup for mocks
+        // Chain
         Mockito.`when`(mockChain.request())
             .thenReturn(mockRequest)
+        Mockito.`when`(mockChain.proceed(Mockito.any(Request::class.java)))
+            .thenReturn(mockResponse)
+
+        // Request
         Mockito.`when`(mockRequest.newBuilder())
             .thenReturn(mockBuilder)
+        Mockito.`when`(mockRequest.method())
+            .thenReturn("GET")
+        Mockito.`when`(mockRequest.body())
+            .thenReturn(mockBody)
+
+        // Request.Builder
         Mockito.`when`(mockBuilder.header(Mockito.anyString(), Mockito.anyString()))
             .thenReturn(mockBuilder)
-        Mockito.`when`(mockBuilder.build()).thenReturn(mockRequest)
-        Mockito.`when`(mockRequest.method()).thenReturn("GET")
-        Mockito.`when`(mockRequest.body()).thenReturn(mockBody)
-    }
-
-    @After
-    fun tearDown() {
-        interceptor = null
+        Mockito.`when`(mockBuilder.build())
+            .thenReturn(mockRequest)
+        Mockito.`when`(
+            mockBuilder.method(
+                Mockito.anyString(),
+                Mockito.any(RequestBody::class.java)
+            )
+        ).thenReturn(mockBuilder)
+        Mockito.`when`(mockBuilder.build())
+            .thenReturn(mockRequest)
     }
 
     @Test
     fun intercept_receivesRequest_appendsTwoHeaders() {
-        interceptor!!.intercept(mockChain)
+        interceptor.intercept(mockChain)
         Mockito.verify(mockBuilder, Mockito.times(1))
             .header(AuthHeadersInterceptor.HOST_HEADER, BuildConfig.API_HOST)
         Mockito.verify(mockBuilder, Mockito.times(1))
