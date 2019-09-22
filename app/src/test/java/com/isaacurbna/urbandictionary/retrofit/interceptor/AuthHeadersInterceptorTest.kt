@@ -11,6 +11,12 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
+/*
+ class okhttp3.Request is final, therefore, Mockito needs to be
+ configured to mock final classes with plugin mock-maker-inline enabled in file:
+ Name: org.mockito.plugins.MockMaker
+ Location: src/test/resources/mockito-extensions
+ */
 class AuthHeadersInterceptorTest {
 
     @Mock
@@ -28,10 +34,10 @@ class AuthHeadersInterceptorTest {
 
     @Before
     fun setUp() {
-        // TODO(Request is a final class so it cannot be mocked, find a workaround)
         MockitoAnnotations.initMocks(this)
         interceptor = AuthHeadersInterceptor()
 
+        // region Mockito setup
         // Chain
         Mockito.`when`(mockChain.request())
             .thenReturn(mockRequest)
@@ -59,6 +65,7 @@ class AuthHeadersInterceptorTest {
         ).thenReturn(mockBuilder)
         Mockito.`when`(mockBuilder.build())
             .thenReturn(mockRequest)
+        // endregion
     }
 
     @Test

@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -19,6 +18,13 @@ android {
         buildConfigField("String", "API_HOST", '"mashape-community-urban-dictionary.p.rapidapi.com"')
         buildConfigField("String", "API_KEY", '"d3aa3ab9d7mshbc0c41b04c009d5p121248jsn5ce0e36364f8"')
         buildConfigField("String", "API_BASE_URL", '"https://mashape-community-urban-dictionary.p.rapidapi.com/"')
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -39,7 +45,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
 
     // Unit & Instrumentation tests
     testImplementation 'junit:junit:4.12'

@@ -2,7 +2,7 @@ package com.isaacurbna.urbandictionary
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.isaacurbna.urbandictionary.retrofit.interfaces.RapidApiInterface
+import com.isaacurbna.urbandictionary.retrofit.interfaces.OnlineApi
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,6 +18,6 @@ class MainActivity : AppCompatActivity() {
             .baseUrl(BuildConfig.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(RapidApiInterface::class.java)
+            .build().create(OnlineApi::class.java)
     }
 }

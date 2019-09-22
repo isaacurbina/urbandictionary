@@ -1,7 +1,7 @@
 package com.isaacurbna.urbandictionary.retrofit
 
 import com.isaacurbna.urbandictionary.model.ConnectivityManager
-import com.isaacurbna.urbandictionary.retrofit.interfaces.RapidApiInterface
+import com.isaacurbna.urbandictionary.retrofit.interfaces.OnlineApi
 import com.isaacurbna.urbandictionary.room.TermsDao
 import io.reactivex.internal.operators.single.SingleError
 import junit.framework.Assert.assertTrue
@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations
 class RapidApiTest {
 
     @Mock
-    lateinit var rapidApiInterface: RapidApiInterface
+    lateinit var onlineApi: OnlineApi
 
     @Mock
     lateinit var termsDao: TermsDao
@@ -28,7 +28,7 @@ class RapidApiTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        rapidApi = RapidApi(rapidApiInterface, termsDao, connectivityManager)
+        rapidApi = RapidApi(onlineApi, termsDao, connectivityManager)
     }
 
     @After
@@ -43,14 +43,16 @@ class RapidApiTest {
     }
 
     @Test
-    fun findTerm_whenOnlineAndTermNotNull_returnsSingleFromRetrofit() {
+    fun findTerm_whenOnlineAndTermNotNull_refreshesCachedDataFromRetrofit() {
         Mockito.`when`(connectivityManager.isOnline())
             .thenReturn(true)
 
         rapidApi!!.findTerm("term")
 
-        Mockito.verify(rapidApiInterface, Mockito.times(1))
+        Mockito.verify(onlineApi, Mockito.times(1))
             .getDefinitions(Mockito.anyString())
+        Mockito.verify(termsDao, Mockito.times(1))
+            .getTerm(Mockito.anyString())
     }
 
     @Test
@@ -60,8 +62,10 @@ class RapidApiTest {
 
         rapidApi!!.findTerm("term")
 
+        Mockito.verify(onlineApi, Mockito.never())
+            .getDefinitions(Mockito.anyString())
         Mockito.verify(termsDao, Mockito.times(1))
-            .getLocalTerms(Mockito.anyString())
+            .getTerm(Mockito.anyString())
     }
 
 }
