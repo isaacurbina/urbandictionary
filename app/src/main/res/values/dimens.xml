@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text sizes -->
+    <dimen name="xlargeText">18sp</dimen>
+    <dimen name="largeText">14sp</dimen>
+    <dimen name="regularText">12sp</dimen>
+    <dimen name="smallText">10sp</dimen>
+    <!-- Paddings and margins -->
+    <dimen name="largePadding">16dp</dimen>
+    <dimen name="regularPadding">10dp</dimen>
+    <dimen name="smallPadding">4dp</dimen>
+    <dimen name="noPadding">0dp</dimen>
+    <!-- ThumbsWidget -->
+    <dimen name="thumbs_review_width">18dp</dimen>
+    <dimen name="thumbs_review_height">18dp</dimen>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/regularPadding">
+
+    <TextView
+        android:id="@+id/termTextView"
+        style="@style/termTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingTop="@dimen/noPadding"
+        android:paddingBottom="@dimen/regularPadding" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        style="@style/descriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/termTextView" />
+
+    <TextView
+        android:id="@+id/authorAndDateTextView"
+        style="@style/authorAndDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descriptionTextView"
+        android:paddingTop="@dimen/regularPadding"
+        android:paddingBottom="@dimen/regularPadding" />
+
+    <com.isaacurbna.urbandictionary.widget.ReviewWidget
+        android:id="@+id/thumbsUpWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authorAndDateTextView"
+        android:layout_marginEnd="@dimen/regularPadding"
+        android:paddingTop="@dimen/regularPadding"
+        android:paddingBottom="@dimen/regularPadding"
+        app:type="positive" />
+
+    <com.isaacurbna.urbandictionary.widget.ReviewWidget
+        android:id="@+id/thumbsDownWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authorAndDateTextView"
+        android:layout_toEndOf="@id/thumbsUpWidget"
+        android:paddingTop="@dimen/regularPadding"
+        android:paddingBottom="@dimen/regularPadding"
+        app:type="negative" />
+
+</RelativeLayout>

@@ -8,4 +8,30 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="termTextView">
+        <item name="android:text">@string/term</item>
+        <item name="android:textSize">@dimen/xlargeText</item>
+        <item name="android:textColor">@color/royalBlue</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="descriptionTextView">
+        <item name="android:text">@string/description</item>
+        <item name="android:textSize">@dimen/regularText</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="thumbsTextView">
+        <item name="android:text">@string/thumbsDown</item>
+        <item name="android:textSize">@dimen/regularText</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="authorAndDateTextView">
+        <item name="android:text">@string/authorAndDate</item>
+        <item name="android:textSize">@dimen/regularText</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
