@@ -1,4 +1,4 @@
-package com.isaacurbna.urbandictionary.dagger
+package com.isaacurbna.urbandictionary.dagger.scope
 
 import javax.inject.Scope
 

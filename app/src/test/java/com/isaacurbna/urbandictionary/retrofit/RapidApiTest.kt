@@ -1,6 +1,6 @@
 package com.isaacurbna.urbandictionary.retrofit
 
-import com.isaacurbna.urbandictionary.model.ConnectivityManager
+import com.isaacurbna.urbandictionary.model.interfaces.ConnectionManager
 import com.isaacurbna.urbandictionary.retrofit.interfaces.OnlineApi
 import com.isaacurbna.urbandictionary.room.TermsDao
 import io.reactivex.internal.operators.single.SingleError
@@ -21,7 +21,7 @@ class RapidApiTest {
     lateinit var termsDao: TermsDao
 
     @Mock
-    lateinit var connectivityManager: ConnectivityManager
+    lateinit var connectivityManager: ConnectionManager
 
     var rapidApi: RapidApi? = null
 

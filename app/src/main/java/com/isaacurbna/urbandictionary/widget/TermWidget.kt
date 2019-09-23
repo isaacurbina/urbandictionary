@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.isaacurbna.urbandictionary.R
 import com.isaacurbna.urbandictionary.model.data.Term
+import kotlinx.android.synthetic.main.viewholder_term.view.*
 import kotlinx.android.synthetic.main.widget_term.view.*
 
 class TermWidget @JvmOverloads constructor(
@@ -32,6 +33,7 @@ class TermWidget @JvmOverloads constructor(
                 context.getString(R.string.thumbsUp).toInt(),
                 context.getString(R.string.thumbsDown).toInt()
             )
+            termWidget.setTerm(term)
         }
     }
 

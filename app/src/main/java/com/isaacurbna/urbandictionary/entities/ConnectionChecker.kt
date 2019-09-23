@@ -7,6 +7,7 @@ import com.isaacurbna.urbandictionary.model.interfaces.ConnectionManager
 
 class ConnectionChecker(val context: Context) : ConnectionManager {
 
+    @Suppress("DEPRECATION")
     override fun isOnline(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
