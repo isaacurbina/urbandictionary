@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">UrbanDictionary</string>
+    <!-- MainActivity -->
+    <string name="searchBarHint">Type any word…</string>
     <!-- TermWidget -->
     <string name="term">dude</string>
     <string name="description">A word that americans use to address each other. Particularly stoners, surfers and skaters.Originally, “dude” meant a stuck up person who dressed overly well. It first emerged in the year 1883 in England.</string>

@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- TermWidget -->
     <style name="termTextView">
         <item name="android:text">@string/term</item>
         <item name="android:textSize">@dimen/xlargeText</item>
@@ -21,17 +22,26 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="authorAndDateTextView">
+        <item name="android:text">@string/authorAndDate</item>
+        <item name="android:textSize">@dimen/regularText</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- ReviewWidget -->
     <style name="thumbsTextView">
         <item name="android:text">@string/thumbsDown</item>
         <item name="android:textSize">@dimen/regularText</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="authorAndDateTextView">
-        <item name="android:text">@string/authorAndDate</item>
+    <!-- MainActivity -->
+    <style name="searchBarTextView">
+        <item name="android:hint">@string/searchBarHint</item>
         <item name="android:textSize">@dimen/regularText</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColorHint">@color/lightGrey</item>
     </style>
 
 </resources>

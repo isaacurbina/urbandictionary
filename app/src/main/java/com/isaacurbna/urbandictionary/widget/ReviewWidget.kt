@@ -2,6 +2,7 @@ package com.isaacurbna.urbandictionary.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
@@ -26,13 +27,17 @@ class ReviewWidget @JvmOverloads constructor(
                 R.styleable.ReviewWidget, 0, 0
             )
 
-            val type = typedArray
-                .getResourceId(R.styleable.ReviewWidget_type, 0)
+            val type = typedArray.getInt(R.styleable.ReviewWidget_type, 0)
 
             when (type) {
-                0 -> thumbImage.scaleX = -1.0f
-                1 -> thumbImage.scaleX = 1.0f
+                0 -> {
+                    thumbImage.scaleY = -1.0f
+                    thumbImage.scaleX = -1.0f
+                }
+                1 -> thumbImage.scaleY = 1.0f
             }
+
+            Log.i("TAG", "type: $type")
 
             typedArray.recycle()
         }
