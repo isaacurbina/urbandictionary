@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/largePadding">
+    android:elevation="@dimen/regularElevation">
 
     <com.isaacurbna.urbandictionary.widget.TermWidget
+        android:id="@+id/termWidget"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/largePadding" />
 
-</RelativeLayout>
+</FrameLayout>

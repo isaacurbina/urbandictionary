@@ -10,6 +10,8 @@
     <dimen name="regularPadding">10dp</dimen>
     <dimen name="smallPadding">4dp</dimen>
     <dimen name="noPadding">0dp</dimen>
+    <!-- Elevations -->
+    <dimen name="regularElevation">12dp</dimen>
     <!-- ThumbsWidget -->
     <dimen name="thumbs_review_width">18dp</dimen>
     <dimen name="thumbs_review_height">18dp</dimen>
