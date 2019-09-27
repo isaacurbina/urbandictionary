@@ -8,6 +8,9 @@
         android:id="@+id/termWidget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/largePadding" />
+        android:paddingStart="@dimen/regularPadding"
+        android:paddingTop="@dimen/smallPadding"
+        android:paddingEnd="@dimen/regularPadding"
+        android:paddingBottom="@dimen/smallPadding" />
 
 </FrameLayout>

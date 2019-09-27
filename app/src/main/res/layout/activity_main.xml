@@ -2,14 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/veryLightGrey"
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/searchBarTextView"
-        style="@style/searchBarTextView"
+        android:id="@+id/searchBarEditText"
+        style="@style/searchBarEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smallPadding" />
+        android:background="@color/white"
+        android:imeOptions="actionDone"
+        android:padding="@dimen/regularPadding"
+        android:singleLine="true" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/termsRecyclerView"

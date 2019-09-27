@@ -6,7 +6,7 @@
     <string name="term">dude</string>
     <string name="description">A word that americans use to address each other. Particularly stoners, surfers and skaters.Originally, “dude” meant a stuck up person who dressed overly well. It first emerged in the year 1883 in England.</string>
     <string name="authorAndDate">by Isaac September 22, 2019</string>
-    <string name="composedAuthorAndDate">by $1%s $2%s</string>
+    <string name="composedAuthorAndDate">by %s %s</string>
     <string name="author">Isaac</string>
     <string name="date">September 22, 2019</string>
     <!-- ReviewWidget -->

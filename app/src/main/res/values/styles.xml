@@ -37,7 +37,7 @@
     </style>
 
     <!-- MainActivity -->
-    <style name="searchBarTextView">
+    <style name="searchBarEditText">
         <item name="android:hint">@string/searchBarHint</item>
         <item name="android:textSize">@dimen/regularText</item>
         <item name="android:textColor">@color/black</item>

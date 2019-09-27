@@ -4,6 +4,7 @@ import android.content.Context
 import com.isaacurbna.urbandictionary.BuildConfig
 import com.isaacurbna.urbandictionary.entities.ConnectionChecker
 import com.isaacurbna.urbandictionary.model.interfaces.ConnectionManager
+import com.isaacurbna.urbandictionary.retrofit.RapidApi
 import com.isaacurbna.urbandictionary.retrofit.interceptor.AuthHeadersInterceptor
 import com.isaacurbna.urbandictionary.retrofit.interfaces.OnlineApi
 import com.isaacurbna.urbandictionary.room.OfflineDatabase
@@ -19,6 +20,16 @@ import javax.inject.Singleton
 
 @Module
 class IOModule {
+
+    @Singleton
+    @Provides
+    fun providesRapidApi(
+        connectionManager: ConnectionManager,
+        offlineDao: TermsDao,
+        onlineApi: OnlineApi
+    ): RapidApi {
+        return RapidApi(onlineApi, offlineDao, connectionManager)
+    }
 
     @Singleton
     @Provides

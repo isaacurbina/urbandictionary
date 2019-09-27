@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.isaacurbna.urbandictionary.R
 import com.isaacurbna.urbandictionary.model.data.Term
+import com.isaacurbna.urbandictionary.util.DateUtil
 import kotlinx.android.synthetic.main.viewholder_term.view.*
 import kotlinx.android.synthetic.main.widget_term.view.*
 
@@ -44,7 +45,7 @@ class TermWidget @JvmOverloads constructor(
             context.getString(
                 R.string.composedAuthorAndDate,
                 term.author,
-                term.writtenOn
+                DateUtil.toUiFormat(term.writtenOn)
             )
         thumbsUpWidget.setQty(term.thumbsUp)
         thumbsDownWidget.setQty(term.thumbsDown)
