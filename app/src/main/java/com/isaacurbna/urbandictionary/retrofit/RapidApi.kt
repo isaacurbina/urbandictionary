@@ -21,7 +21,7 @@ class RapidApi(
     fun findTerm(term: String?): Single<List<Term>> {
         if (term.isNullOrEmpty()) {
             Log.e(TAG, "findTerm: term is null, returning Single.error")
-            return throwError("term is null")
+            return throwError("Term is null")
         }
 
         val isOnline = connectivityManager.isOnline()
@@ -30,16 +30,11 @@ class RapidApi(
         if (isOnline) {
             Log.i(TAG, "findTerm: fetching data from the web")
             // update local results
-            val single = onlineApi.getDefinitions(term)
+            return onlineApi.getDefinitions(term)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .subscribe(
-                    { result -> storeResult(result.list) },
-                    { error -> throwError(error) })
-            single.dispose()
-            Log.i(TAG, "findTerm: returning updated cache")
-            return offlineDao.getTerm(term)
-
+                .map { response -> response.list }
+                .doOnSuccess { list -> storeResult(list) }
         } else {
             Log.i(TAG, "findTerm: fetching data from local database")
             return offlineDao.getTerm(term)

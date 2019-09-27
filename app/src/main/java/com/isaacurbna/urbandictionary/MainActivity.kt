@@ -2,16 +2,20 @@ package com.isaacurbna.urbandictionary
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.isaacurbna.urbandictionary.adapter.TermAdapter
 import com.isaacurbna.urbandictionary.model.data.Term
 import com.isaacurbna.urbandictionary.retrofit.RapidApi
 import com.isaacurbna.urbandictionary.retrofit.interfaces.OnlineApi
 import com.isaacurbna.urbandictionary.room.TermsDao
 import com.isaacurbna.urbandictionary.util.ActivityUtil.Companion.hideKeyboard
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -58,6 +62,9 @@ class MainActivity : AppCompatActivity() {
                 EditorInfo.IME_ACTION_DONE -> {
                     fetchData(searchBarEditText.text.toString())
                     this.hideKeyboard(searchBarEditText)
+                    progressBar.visibility = View.VISIBLE
+                    progressBar.requestFocus()
+                    searchBarEditText.isEnabled = false
                     true
                 }
                 else -> false
@@ -69,7 +76,13 @@ class MainActivity : AppCompatActivity() {
     // region helper methods
     fun fetchData(term: String) {
         Log.i(TAG, "fetchData($term)")
-        rapidApi.findTerm(term)
+        val single = rapidApi.findTerm(term)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result -> showResults(result) },
+                { error -> showError(error) }
+            )
     }
 
     fun showResults(termList: List<Term>) {
@@ -82,14 +95,19 @@ class MainActivity : AppCompatActivity() {
                 layoutManager = viewManager
                 adapter = viewAdapter
             }
+        progressBar.visibility = View.GONE
+        searchBarEditText.isEnabled = true
     }
 
     fun showError(error: Throwable?) {
         Log.i(TAG, "showError($error)")
-        // TODO(display error message on UI)
         Log.e(TAG, "error getting data", error)
+        Snackbar.make(searchBarEditText, error?.localizedMessage.toString(), Snackbar.LENGTH_LONG)
+            .show()
+        progressBar.visibility = View.GONE
+        searchBarEditText.isEnabled = true
     }
-    // endregion
+// endregion
 
 
 }
