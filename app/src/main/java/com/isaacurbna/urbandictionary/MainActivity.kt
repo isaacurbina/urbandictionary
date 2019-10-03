@@ -1,5 +1,6 @@
 package com.isaacurbna.urbandictionary
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.isaacurbna.urbandictionary.adapter.TermAdapter
 import com.isaacurbna.urbandictionary.model.data.Term
+import com.isaacurbna.urbandictionary.model.interfaces.OrderBy
 import com.isaacurbna.urbandictionary.retrofit.RapidApi
 import com.isaacurbna.urbandictionary.retrofit.interfaces.OnlineApi
 import com.isaacurbna.urbandictionary.room.TermsDao
@@ -74,9 +76,10 @@ class MainActivity : AppCompatActivity() {
     // endregion
 
     // region helper methods
+    @SuppressLint("CheckResult")
     fun fetchData(term: String) {
         Log.i(TAG, "fetchData($term)")
-        val single = rapidApi.findTerm(term)
+        rapidApi.findTerm(term, getOrderBy())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -106,6 +109,11 @@ class MainActivity : AppCompatActivity() {
             .show()
         progressBar.visibility = View.GONE
         searchBarEditText.isEnabled = true
+    }
+
+    fun getOrderBy(): Int? {
+        // TODO(add a dropdown menu to let the user choose the order they want
+        return OrderBy.THUMBS_UP_DESC
     }
 // endregion
 
