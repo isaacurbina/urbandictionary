@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +45,37 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     // endregion
 
+    // region attributes
+    var orderByValue: String? = null
+    // endregion
+
+    // region interfaces impl
+    val spinnerListener = object : OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            Log.i(TAG, "orderByValue= $orderByValue")
+            orderByValue = null
+        }
+
+        override fun onItemSelected(
+            parent: AdapterView<*>?,
+            view: View?,
+            position: Int,
+            id: Long
+        ) {
+            orderByValue = parent?.getItemAtPosition(position).toString()
+            Log.i(TAG, "orderByValue= $orderByValue")
+
+            val searchTerm = getSearchTerm()
+            Log.i(TAG, "searchTerm= $searchTerm")
+
+            if (!searchTerm.isNullOrEmpty()) {
+                fetchData(searchTerm, getOrderBy())
+            }
+        }
+
+    }
+    // endregion
+
     // region lifecycle callbacks
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +88,9 @@ class MainActivity : AppCompatActivity() {
 
         // recycler view setup
         viewManager = LinearLayoutManager(this)
+
+        // set up spinner data
+        setupSpinner()
     }
 
     override fun onResume() {
@@ -62,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         searchBarEditText.setOnEditorActionListener { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-                    fetchData(searchBarEditText.text.toString())
+                    fetchData(getSearchTerm(), getOrderBy())
                     this.hideKeyboard(searchBarEditText)
                     progressBar.visibility = View.VISIBLE
                     progressBar.requestFocus()
@@ -76,10 +113,25 @@ class MainActivity : AppCompatActivity() {
     // endregion
 
     // region helper methods
+    fun setupSpinner() {
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.order_by_options,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            orderBySpinner.adapter = adapter
+            orderBySpinner.onItemSelectedListener = spinnerListener
+        }
+    }
+
     @SuppressLint("CheckResult")
-    fun fetchData(term: String) {
+    fun fetchData(term: String?, orderBy: Int?) {
         Log.i(TAG, "fetchData($term)")
-        rapidApi.findTerm(term, getOrderBy())
+        rapidApi.findTerm(term, orderBy)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -111,9 +163,19 @@ class MainActivity : AppCompatActivity() {
         searchBarEditText.isEnabled = true
     }
 
+    fun getSearchTerm(): String? =
+        searchBarEditText.text.toString()
+
     fun getOrderBy(): Int? {
-        // TODO(add a dropdown menu to let the user choose the order they want
-        return OrderBy.THUMBS_UP_DESC
+        var value: Int? = null
+        Log.i(TAG, "orderByValue= $orderByValue")
+
+        when (orderByValue) {
+            getString(R.string.mostThumbsUp) -> value = OrderBy.THUMBS_UP_DESC
+            getString(R.string.mostThumbsDown) -> value = OrderBy.THUMBS_DOWN_DESC
+            else -> value = null
+        }
+        return value
     }
 // endregion
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="order_by_options">
+        <item>@string/emptyString</item>
+        <item>@string/mostThumbsUp</item>
+        <item>@string/mostThumbsDown</item>
+    </string-array>
+</resources>

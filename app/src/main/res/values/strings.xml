@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">UrbanDictionary</string>
+    <string name="emptyString" />
     <!-- MainActivity -->
     <string name="searchBarHint">Type any word…</string>
     <!-- TermWidget -->
@@ -14,4 +15,7 @@
     <string name="thumbsDown">321</string>
     <!-- content descriptions -->
     <string name="thumbs_down_content_description">thumbs_down_img</string>
+    <!-- Spinner values -->
+    <string name="mostThumbsUp">Most Thumbs Up</string>
+    <string name="mostThumbsDown">Most Thumbs Down</string>
 </resources>
